@@ -1,0 +1,2385 @@
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+	int binario_a_7(uint16_t dato_a_convertir)
+	{
+		int data_out = 0;
+		 switch(dato_a_convertir)
+			  {
+			  case 0:
+				  data_out = 0x3F;
+				  break;
+			  case 1:
+				  data_out = 0x06;
+				  break;
+			  case 2:
+				  data_out = 0x5B;
+				  break;
+			  case 3:
+				  data_out = 0x4F;
+				  break;
+			  case 4:
+				  data_out = 0x66;
+				break;
+			  case 5:
+				  data_out = 0x6D;
+			    break;
+			  case 6:
+				  data_out = 0x7D;
+				  break;
+			  case 7:
+				  data_out = 0x07;
+				  break;
+			  case 8:
+				  data_out = 0x7F;
+				  break;
+			  case 9:
+				  data_out = 0x6F;
+				  break;
+			  default:
+				  data_out = 0x00;
+				  break;
+			  }
+			  return data_out;
+	}
+  
+  uint16_t set;
+  uint16_t DMA;
+  uint16_t numeros;
+  uint16_t contacto;
+  uint16_t data_out;
+  uint16_t unidad, decena;
+  int num[32];
+  num [0]=0;
+  num[1]=1;
+  num [2]=2;
+  num[3]=3;
+  num [4]=4;
+  num[5]=5;
+  num[6]=6;
+  num [7]=7;
+  num[8]=8;
+  num [9]=9;
+  
+uint16_t UNIDEC;
+int i;
+
+uint16_t DAYDEC_C1 = 0,DAYUNI_C1 =0,MESUNI_C1=0,MESDEC_C1=0, AÑOUNI_C1=0, AÑODEC_C1=0;
+uint16_t DAYDEC_C2 = 0,DAYUNI_C2 =0,MESUNI_C2=0,MESDEC_C2=0, AÑOUNI_C2=0, AÑODEC_C2=0;
+uint16_t DAYDEC_C3 = 0,DAYUNI_C3 =0,MESUNI_C3=0,MESDEC_C3=0, AÑOUNI_C3=0, AÑODEC_C3=0;
+uint16_t DAYDEC_C4 = 0,DAYUNI_C4 =0,MESUNI_C4=0,MESDEC_C4=0, AÑOUNI_C4=0, AÑODEC_C4=0;
+
+  /* USER CODE END 1 */
+
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+
+	  set = GPIOC -> IDR;
+	  set = set & 0x0001;
+
+	  UNIDEC = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_4);
+
+	  DMA = GPIOC -> IDR;
+	  DMA = DMA & 0x0000E;
+
+	  numeros = GPIOC -> IDR;
+	  numeros = numeros & 0x01E0;
+
+	  contacto = GPIOC -> IDR;
+	  contacto = contacto &  0x0600;
+
+
+	  switch (contacto)
+	  {
+	  case 1536:
+		  switch (DMA)
+		 		  {
+		 		  case 2: //BOTON DE DIA
+		 			  switch(numeros)
+		 			  {
+		 			  case 32: // NÚMERO 1
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		 				     {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		 				     {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  DAYDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 					 break;
+
+		 			  case 64:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		 				     {
+		 						  for (i=0;i<=2;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+		 				     {
+		 						  for (i=0;i<=2;i++)
+		 						  {
+		 						  DAYDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 				  break;
+
+		 			  case 96:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		 				     {
+		 						  for (i=0;i<=3;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+		 				     {
+		 						  for (i=0;i<=3;i++)
+		 						  {
+		 						  DAYDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 				  break;
+
+		 			  case 128:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		 				     {
+		 						  for (i=0;i<=4;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 160:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		 				     {
+		 						  for (i=0;i<=5;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 192:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 				     {
+		 						  for (i=0;i<=6;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 224:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+		 				     {
+		 						  for (i=0;i<=7;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 256:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+		 				     {
+		 						  for (i=0;i<=8;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 288:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+		 				     {
+		 						  for (i=0;i<=9;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+
+		 			  default:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+		 				     {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  DAYUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1)
+		 				     {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  DAYDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 				  break;
+		 			  }
+		 			  break; // FIN DEL BOTON DIA
+
+		 		  case 4: // BOTÓN DE MES
+		 			  switch(numeros)
+		 			  {
+		 			  case 32: // NÚMERO 1
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		 				     {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		 				     {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  MESDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 					 break;
+
+		 			  case 64:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		 				     {
+		 						  for (i=0;i<=2;i++)
+		 						  {
+		 							  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS. NO SE OCUPA, NO HAY MES 20
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 96:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		 				     {
+		 						  for (i=0;i<=3;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS. NO SE OCUPA, NO HAY MES 30
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 128:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		 				     {
+		 						  for (i=0;i<=4;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 160:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		 				     {
+		 						  for (i=0;i<=5;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 192:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 				     {
+		 						  for (i=0;i<=6;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 224:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+		 				     {
+		 						  for (i=0;i<=7;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 256:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+		 				     {
+		 						  for (i=0;i<=8;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+		 			  case 288:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+		 				     {
+		 						  for (i=0;i<=9;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+		 				     {
+		 				    	 break;
+		 				     }
+		 				  break;
+
+
+		 			  default:
+		 				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+		 				     {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  MESUNI_C4 = num[i];
+		 						  }
+		 				     }
+		 				     else if ( set == 1 && UNIDEC == 1)
+		 				     {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  MESDEC_C4 = num[i];
+		 						  }
+		 				     }
+		 				  break;
+		 			  }
+		 			  break; //FIN DEL BOTON MES
+
+		 		  case 8: // BOTÓN DE AÑO
+		 			  switch(numeros)
+		 			  {
+		 			  case 32: // NÚMERO 1
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		 					 {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		 					 {
+		 						  for (i=0;i<=1;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 					 break;
+
+		 			  case 64:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		 					 {
+		 						  for (i=0;i<=2;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+		 					 {
+		 						  for (i=0;i<=2;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 96:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		 					 {
+		 						  for (i=0;i<=3;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+		 					 {
+		 						  for (i=0;i<=3;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 128:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		 					 {
+		 						  for (i=0;i<=4;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1)
+		 					 {
+		 						  for (i=0;i<=4;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 160:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		 					 {
+		 						  for (i=0;i<=5;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		 					 {
+		 						  for (i=0;i<=5;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 192:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 					 {
+		 						  for (i=0;i<=6;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 					 {
+		 						  for (i=0;i<=6;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 224:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 					 {
+		 						  for (i=0;i<=7;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 					 {
+		 						  for (i=0;i<=7;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 256:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 					 {
+		 						  for (i=0;i<=8;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 					 {
+		 						  for (i=0;i<=8;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+		 			  case 288:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 					 {
+		 						  for (i=0;i<=9;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 					 {
+		 						  for (i=0;i<=9;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+
+
+		 			  default:
+		 					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		 					 {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  AÑOUNI_C4 = num[i];
+		 						  }
+		 					 }
+		 					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		 					 {
+		 						  for (i=0;i<=0;i++)
+		 						  {
+		 						  AÑODEC_C4 = num[i];
+		 						  }
+		 					 }
+		 				  break;
+		 			  }
+
+		 			  break; //FIN DEL BOTON  AÑO
+
+		 		  default: // INICIO DEFAULT
+		 			  break;
+		 		  }
+		 		  break;
+
+	  case 1024:
+		  switch (DMA)
+		  {
+		  case 2: //BOTON DE DIA
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  DAYDEC_C3 = num[i];
+						  }
+				     }
+					 break;
+
+			  case 64:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+						  DAYDEC_C3 = num[i];
+						  }
+				     }
+				  break;
+
+			  case 96:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  DAYDEC_C3 = num[i];
+						  }
+				     }
+				  break;
+
+			  case 128:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+				     {
+						  for (i=0;i<=4;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 160:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+				     {
+						  for (i=0;i<=5;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 192:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+				     {
+						  for (i=0;i<=6;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 224:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+				     {
+						  for (i=0;i<=7;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 256:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+				     {
+						  for (i=0;i<=8;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 288:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+				     {
+						  for (i=0;i<=9;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+				     {
+				    	 break;
+				     }
+				  break;
+
+
+			  default:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  DAYUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1)
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  DAYDEC_C3 = num[i];
+						  }
+				     }
+				  break;
+			  }
+			  break; // FIN DEL BOTON DIA
+
+		  case 4: // BOTÓN DE MES
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  MESDEC_C3 = num[i];
+						  }
+				     }
+					 break;
+
+			  case 64:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+							  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS. NO SE OCUPA, NO HAY MES 20
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 96:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS. NO SE OCUPA, NO HAY MES 30
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 128:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+				     {
+						  for (i=0;i<=4;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 160:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+				     {
+						  for (i=0;i<=5;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 192:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+				     {
+						  for (i=0;i<=6;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 224:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+				     {
+						  for (i=0;i<=7;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 256:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+				     {
+						  for (i=0;i<=8;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 288:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+				     {
+						  for (i=0;i<=9;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+				     {
+				    	 break;
+				     }
+				  break;
+
+
+			  default:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  MESUNI_C3 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1)
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  MESDEC_C3 = num[i];
+						  }
+				     }
+				  break;
+			  }
+			  break; //FIN DEL BOTON MES
+
+		  case 8: // BOTÓN DE AÑO
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+					 if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+					 {
+						  for (i=0;i<=1;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+					 {
+						  for (i=0;i<=1;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+					 break;
+
+			  case 64:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+					 {
+						  for (i=0;i<=2;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+					 {
+						  for (i=0;i<=2;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 96:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+					 {
+						  for (i=0;i<=3;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+					 {
+						  for (i=0;i<=3;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 128:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+					 {
+						  for (i=0;i<=4;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1)
+					 {
+						  for (i=0;i<=4;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 160:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+					 {
+						  for (i=0;i<=5;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+					 {
+						  for (i=0;i<=5;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 192:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=6;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=6;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 224:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=7;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=7;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 256:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=8;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=8;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 288:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=9;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=9;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+
+
+			  default:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=0;i++)
+						  {
+						  AÑOUNI_C3 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=0;i++)
+						  {
+						  AÑODEC_C3 = num[i];
+						  }
+					 }
+				  break;
+			  }
+
+			  break; //FIN DEL BOTON  AÑO
+
+		  default: // INICIO DEFAULT
+			  break;
+		  }
+		  break;
+
+	  case 0: //**CONTACTO 0**//
+		  switch (DMA)
+		  {
+		  case 2: //BOTON DE DIA
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  DAYDEC_C1 = num[i];
+						  }
+				     }
+					 break;
+
+			  case 64:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+						  DAYDEC_C1 = num[i];
+						  }
+				     }
+				  break;
+
+			  case 96:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  DAYDEC_C1 = num[i];
+						  }
+				     }
+				  break;
+
+			  case 128:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+				     {
+						  for (i=0;i<=4;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 160:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+				     {
+						  for (i=0;i<=5;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 192:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+				     {
+						  for (i=0;i<=6;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 224:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+				     {
+						  for (i=0;i<=7;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 256:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+				     {
+						  for (i=0;i<=8;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 288:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+				     {
+						  for (i=0;i<=9;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+				     {
+				    	 break;
+				     }
+				  break;
+
+
+			  default:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  DAYUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1)
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  DAYDEC_C1 = num[i];
+						  }
+				     }
+				  break;
+			  }
+			  break; // FIN DEL BOTON DIA
+
+		  case 4: // BOTÓN DE MES
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+				     {
+						  for (i=0;i<=1;i++)
+						  {
+						  MESDEC_C1 = num[i];
+						  }
+				     }
+					 break;
+
+			  case 64:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+				     {
+						  for (i=0;i<=2;i++)
+						  {
+							  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS. NO SE OCUPA, NO HAY MES 20
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 96:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+				     {
+						  for (i=0;i<=3;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS. NO SE OCUPA, NO HAY MES 30
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 128:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+				     {
+						  for (i=0;i<=4;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 160:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+				     {
+						  for (i=0;i<=5;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 192:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+				     {
+						  for (i=0;i<=6;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 224:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+				     {
+						  for (i=0;i<=7;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 256:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+				     {
+						  for (i=0;i<=8;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+				     {
+				    	 break;
+				     }
+				  break;
+
+			  case 288:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+				     {
+						  for (i=0;i<=9;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+				     {
+				    	 break;
+				     }
+				  break;
+
+
+			  default:
+				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  MESUNI_C1 = num[i];
+						  }
+				     }
+				     else if ( set == 1 && UNIDEC == 1)
+				     {
+						  for (i=0;i<=0;i++)
+						  {
+						  MESDEC_C1 = num[i];
+						  }
+				     }
+				  break;
+			  }
+			  break; //FIN DEL BOTON MES
+
+		  case 8: // BOTÓN DE AÑO
+			  switch(numeros)
+			  {
+			  case 32: // NÚMERO 1
+					 if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+					 {
+						  for (i=0;i<=1;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+					 {
+						  for (i=0;i<=1;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+					 break;
+
+			  case 64:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+					 {
+						  for (i=0;i<=2;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+					 {
+						  for (i=0;i<=2;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 96:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+					 {
+						  for (i=0;i<=3;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+					 {
+						  for (i=0;i<=3;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 128:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+					 {
+						  for (i=0;i<=4;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1)
+					 {
+						  for (i=0;i<=4;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 160:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+					 {
+						  for (i=0;i<=5;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+					 {
+						  for (i=0;i<=5;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 192:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=6;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=6;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 224:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=7;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=7;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 256:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=8;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=8;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+			  case 288:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=9;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=9;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+
+
+			  default:
+					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+					 {
+						  for (i=0;i<=0;i++)
+						  {
+						  AÑOUNI_C1 = num[i];
+						  }
+					 }
+					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+					 {
+						  for (i=0;i<=0;i++)
+						  {
+						  AÑODEC_C1 = num[i];
+						  }
+					 }
+				  break;
+			  }
+
+			  break; //FIN DEL BOTON  AÑO
+
+		  default: // INICIO DEFAULT
+			  break;
+		  }
+		  break;
+
+	  case 512://**CONTACTO 1**//
+		  switch (DMA)
+		  		  {
+		  		  case 2: //BOTON DE DIA
+		  			  switch(numeros)
+		  			  {
+		  			  case 32: // NÚMERO 1
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		  				     {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		  				     {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  DAYDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  					 break;
+
+		  			  case 64:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		  				     {
+		  						  for (i=0;i<=2;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+		  				     {
+		  						  for (i=0;i<=2;i++)
+		  						  {
+		  						  DAYDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  				  break;
+
+		  			  case 96:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		  				     {
+		  						  for (i=0;i<=3;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+		  				     {
+		  						  for (i=0;i<=3;i++)
+		  						  {
+		  						  DAYDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  				  break;
+
+		  			  case 128:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		  				     {
+		  						  for (i=0;i<=4;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 160:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		  				     {
+		  						  for (i=0;i<=5;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 192:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  				     {
+		  						  for (i=0;i<=6;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 224:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+		  				     {
+		  						  for (i=0;i<=7;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 256:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+		  				     {
+		  						  for (i=0;i<=8;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 288:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+		  				     {
+		  						  for (i=0;i<=9;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+
+		  			  default:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+		  				     {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  DAYUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1)
+		  				     {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  DAYDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  				  break;
+		  			  }
+		  			  break; // FIN DEL BOTON DIA
+
+		  		  case 4: // BOTÓN DE MES
+		  			  switch(numeros)
+		  			  {
+		  			  case 32: // NÚMERO 1
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		  				     {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		  				     {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  MESDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  					 break;
+
+		  			  case 64:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		  				     {
+		  						  for (i=0;i<=2;i++)
+		  						  {
+		  							  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS. NO SE OCUPA, NO HAY MES 20
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 96:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		  				     {
+		  						  for (i=0;i<=3;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS. NO SE OCUPA, NO HAY MES 30
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 128:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		  				     {
+		  						  for (i=0;i<=4;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 4. EL MES NO LLEGA A 40
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 160:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		  				     {
+		  						  for (i=0;i<=5;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 192:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  				     {
+		  						  for (i=0;i<=6;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 224:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 7 UNIDADES
+		  				     {
+		  						  for (i=0;i<=7;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 7. EL MES NO LLEGA A 70
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 256:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 8 UNIDADES
+		  				     {
+		  						  for (i=0;i<=8;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 8. EL MES NO LLEGA A 80
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+		  			  case 288:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 9 UNIDADES
+		  				     {
+		  						  for (i=0;i<=9;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 9. EL MES NO LLEGA A 90
+		  				     {
+		  				    	 break;
+		  				     }
+		  				  break;
+
+
+		  			  default:
+		  				     if (set == 1 && UNIDEC ==0) //NUMERO 0 UNIDADES
+		  				     {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  MESUNI_C2 = num[i];
+		  						  }
+		  				     }
+		  				     else if ( set == 1 && UNIDEC == 1)
+		  				     {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  MESDEC_C2 = num[i];
+		  						  }
+		  				     }
+		  				  break;
+		  			  }
+		  			  break; //FIN DEL BOTON MES
+
+		  		  case 8: // BOTÓN DE AÑO
+		  			  switch(numeros)
+		  			  {
+		  			  case 32: // NÚMERO 1
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 1 UNIDADES
+		  					 {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //NUMERO 1 DECENAS
+		  					 {
+		  						  for (i=0;i<=1;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  					 break;
+
+		  			  case 64:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 2 UNIDADES
+		  					 {
+		  						  for (i=0;i<=2;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //NUMERO 2 DECENAS
+		  					 {
+		  						  for (i=0;i<=2;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 96:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 3 UNIDADES
+		  					 {
+		  						  for (i=0;i<=3;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //NUMERO 3 DECENAS
+		  					 {
+		  						  for (i=0;i<=3;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 128:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 4 UNIDADES
+		  					 {
+		  						  for (i=0;i<=4;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1)
+		  					 {
+		  						  for (i=0;i<=4;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 160:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 5 UNIDADES
+		  					 {
+		  						  for (i=0;i<=5;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 5. EL MES NO LLEGA A 50
+		  					 {
+		  						  for (i=0;i<=5;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 192:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  					 {
+		  						  for (i=0;i<=6;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  					 {
+		  						  for (i=0;i<=6;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 224:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  					 {
+		  						  for (i=0;i<=7;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  					 {
+		  						  for (i=0;i<=7;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 256:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  					 {
+		  						  for (i=0;i<=8;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  					 {
+		  						  for (i=0;i<=8;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+		  			  case 288:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  					 {
+		  						  for (i=0;i<=9;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  					 {
+		  						  for (i=0;i<=9;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+
+
+		  			  default:
+		  					 if (set == 1 && UNIDEC ==0) //NUMERO 6 UNIDADES
+		  					 {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  AÑOUNI_C2 = num[i];
+		  						  }
+		  					 }
+		  					 else if ( set == 1 && UNIDEC == 1) //YA NO ES NECESARIO AQU�? DECENAS DE 6. EL MES NO LLEGA A 60
+		  					 {
+		  						  for (i=0;i<=0;i++)
+		  						  {
+		  						  AÑODEC_C2 = num[i];
+		  						  }
+		  					 }
+		  				  break;
+		  			  }
+
+		  			  break; //FIN DEL BOTON  AÑO
+
+		  		  default: // INICIO DEFAULT
+		  			  break;
+		  		  }
+		  		  break;
+	  }
+
+
+	  if (contacto == 0)
+	  {
+		  //INICIO IMPRESION DIA
+		  	  decena = DAYDEC_C1;
+		  	  unidad =  DAYUNI_C1;
+
+			 data_out = binario_a_7(decena);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+			 HAL_Delay(250);
+
+			 data_out = binario_a_7(unidad);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+			 HAL_Delay(300);
+			 //FIN IMPRESION DIA
+
+			 //FEEDBACK
+			 data_out = 0x00;
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+			 HAL_Delay(1000);
+			 //FIN FEEDBACK
+
+			 //INICIO IMPRESION MES
+			 decena = MESDEC_C1;
+			 unidad = MESUNI_C1;
+
+			 data_out = binario_a_7(decena);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+			 HAL_Delay(250);
+
+			 data_out = binario_a_7(unidad);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+			 HAL_Delay(300);
+			 //FIN IMPRESION DIA
+
+			 //FEEDBACK
+			 data_out = 0x00;
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+			 HAL_Delay(1000);
+			 //FIN FEEDBACK
+
+			 //INICIO IMPRESION MES
+			 decena = AÑODEC_C1;
+			 unidad = AÑOUNI_C1;
+
+			 data_out = binario_a_7(decena);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+			 HAL_Delay(250);
+
+			 data_out = binario_a_7(unidad);
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+			 HAL_Delay(300);
+			 //FIN IMPRESION DIA
+
+			 //FEEDBACK
+			 data_out = 0x00;
+			 GPIOB -> ODR = data_out;
+			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 0);
+			 HAL_Delay(1250);
+			 //FIN FEEDBACK
+
+	  }
+	  else if (contacto == 512)
+	  {
+		  //INICIO IMPRESION DIA
+		  		  	  decena = DAYDEC_C2;
+		  		  	  unidad =  DAYUNI_C2;
+
+		  			 data_out = binario_a_7(decena);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+		  			 HAL_Delay(250);
+
+		  			 data_out = binario_a_7(unidad);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+		  			 HAL_Delay(300);
+		  			 //FIN IMPRESION DIA
+
+		  			 //FEEDBACK
+		  			 data_out = 0x00;
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+		  			 HAL_Delay(1000);
+		  			 //FIN FEEDBACK
+
+		  			 //INICIO IMPRESION MES
+		  			 decena = MESDEC_C2;
+		  			 unidad = MESUNI_C2;
+
+		  			 data_out = binario_a_7(decena);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+		  			 HAL_Delay(250);
+
+		  			 data_out = binario_a_7(unidad);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+		  			 HAL_Delay(300);
+		  			 //FIN IMPRESION DIA
+
+		  			 //FEEDBACK
+		  			 data_out = 0x00;
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+		  			 HAL_Delay(1000);
+		  			 //FIN FEEDBACK
+
+		  			 //INICIO IMPRESION MES
+		  			 decena = AÑODEC_C2;
+		  			 unidad = AÑOUNI_C2;
+
+		  			 data_out = binario_a_7(decena);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+		  			 HAL_Delay(250);
+
+		  			 data_out = binario_a_7(unidad);
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+		  			 HAL_Delay(300);
+		  			 //FIN IMPRESION DIA
+
+		  			 //FEEDBACK
+		  			 data_out = 0x00;
+		  			 GPIOB -> ODR = data_out;
+		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 0);
+		  			 HAL_Delay(1250);
+		  			 //FIN FEEDBACK
+	  }
+	  else if (contacto == 1024)
+	  	  {
+	  		  //INICIO IMPRESION DIA
+	  		  		  	  decena = DAYDEC_C3;
+	  		  		  	  unidad =  DAYUNI_C3;
+
+	  		  			 data_out = binario_a_7(decena);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	  		  			 HAL_Delay(250);
+
+	  		  			 data_out = binario_a_7(unidad);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	  		  			 HAL_Delay(300);
+	  		  			 //FIN IMPRESION DIA
+
+	  		  			 //FEEDBACK
+	  		  			 data_out = 0x00;
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+	  		  			 HAL_Delay(1000);
+	  		  			 //FIN FEEDBACK
+
+	  		  			 //INICIO IMPRESION MES
+	  		  			 decena = MESDEC_C3;
+	  		  			 unidad = MESUNI_C3;
+
+	  		  			 data_out = binario_a_7(decena);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	  		  			 HAL_Delay(250);
+
+	  		  			 data_out = binario_a_7(unidad);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	  		  			 HAL_Delay(300);
+	  		  			 //FIN IMPRESION DIA
+
+	  		  			 //FEEDBACK
+	  		  			 data_out = 0x00;
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+	  		  			 HAL_Delay(1000);
+	  		  			 //FIN FEEDBACK
+
+	  		  			 //INICIO IMPRESION MES
+	  		  			 decena = AÑODEC_C3;
+	  		  			 unidad = AÑOUNI_C3;
+
+	  		  			 data_out = binario_a_7(decena);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	  		  			 HAL_Delay(250);
+
+	  		  			 data_out = binario_a_7(unidad);
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	  		  			 HAL_Delay(300);
+	  		  			 //FIN IMPRESION DIA
+
+	  		  			 //FEEDBACK
+	  		  			 data_out = 0x00;
+	  		  			 GPIOB -> ODR = data_out;
+	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 0);
+	  		  			 HAL_Delay(1250);
+	  		  			 //FIN FEEDBACK
+	  	  }
+	  else if (contacto == 1536)
+	 	  	  {
+	 	  		  //INICIO IMPRESION DIA
+	 	  		  		  	  decena = DAYDEC_C4;
+	 	  		  		  	  unidad =  DAYUNI_C4;
+
+	 	  		  			 data_out = binario_a_7(decena);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	 	  		  			 HAL_Delay(250);
+
+	 	  		  			 data_out = binario_a_7(unidad);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	 	  		  			 HAL_Delay(300);
+	 	  		  			 //FIN IMPRESION DIA
+
+	 	  		  			 //FEEDBACK
+	 	  		  			 data_out = 0x00;
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+	 	  		  			 HAL_Delay(1000);
+	 	  		  			 //FIN FEEDBACK
+
+	 	  		  			 //INICIO IMPRESION MES
+	 	  		  			 decena = MESDEC_C4;
+	 	  		  			 unidad = MESUNI_C4;
+
+	 	  		  			 data_out = binario_a_7(decena);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	 	  		  			 HAL_Delay(250);
+
+	 	  		  			 data_out = binario_a_7(unidad);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	 	  		  			 HAL_Delay(300);
+	 	  		  			 //FIN IMPRESION DIA
+
+	 	  		  			 //FEEDBACK
+	 	  		  			 data_out = 0x00;
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 1);
+	 	  		  			 HAL_Delay(1000);
+	 	  		  			 //FIN FEEDBACK
+
+	 	  		  			 //INICIO IMPRESION MES
+	 	  		  			 decena = AÑODEC_C4;
+	 	  		  			 unidad = AÑOUNI_C4;
+
+	 	  		  			 data_out = binario_a_7(decena);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 1);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 0);
+
+	 	  		  			 HAL_Delay(250);
+
+	 	  		  			 data_out = binario_a_7(unidad);
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control1_Pin, 0);
+	 	  		  			 HAL_GPIO_WritePin(GPIOA, control2_Pin, 1);
+	 	  		  			 HAL_Delay(300);
+	 	  		  			 //FIN IMPRESION DIA
+
+	 	  		  			 //FEEDBACK
+	 	  		  			 data_out = 0x00;
+	 	  		  			 GPIOB -> ODR = data_out;
+	 	  		  			 HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, 0);
+	 	  		  			 HAL_Delay(1250);
+	 	  		  			 //FIN FEEDBACK
+	 	  	  }
+
+
+    /* USER CODE END WHILE */
